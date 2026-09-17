@@ -1,0 +1,64 @@
+/* Container wrapper */
+.theme-select-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: 12px;
+}
+
+/* Main custom dropdown styling */
+.theme-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  background-color: var(--sys-panel, rgba(20, 30, 48, 0.85));
+  color: var(--sys-blue, #00f0ff);
+  border: 1px solid var(--sys-blue-dim, rgba(0, 240, 255, 0.3));
+  border-radius: 4px;
+  padding: 6px 32px 6px 12px;
+  font-family: 'Rajdhani', sans-serif, system-ui;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Hover & Focus state */
+.theme-select:hover,
+.theme-select:focus {
+  border-color: var(--sys-blue, #00f0ff);
+  box-shadow: 0 0 10px var(--sys-glow, rgba(0, 240, 255, 0.4));
+  color: #ffffff;
+}
+
+/* Arrow indicator (Existing in your app.css) */
+.theme-select-wrapper::after {
+  content: '▼';
+  font-size: 8px;
+  color: var(--sys-blue, #00f0ff);
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.theme-select-wrapper:hover::after {
+  color: #ffffff;
+}
+
+/* Options menu styling */
+.theme-select option {
+  background-color: #0b132b;
+  color: var(--sys-blue, #00f0ff);
+  padding: 8px;
+}
+
+[data-theme="light"] .theme-select option {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}

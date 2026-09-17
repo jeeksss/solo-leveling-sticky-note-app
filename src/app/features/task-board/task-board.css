@@ -1,0 +1,273 @@
+/* ===== Layout ===== */
+.page-layout {
+  display: flex;
+  gap: 24px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+  align-items: flex-start;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  padding: 24px 0;
+  margin: 0;
+}
+
+.board-column {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Sticky note cards ===== */
+.sticky {
+  --rank-color: var(--rank-blue); /* default */
+  background: rgba(20, 30, 48, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--rank-color);
+  box-shadow:
+    0 0 8px var(--rank-color),
+    0 0 20px rgba(77,184,255,0.15),
+    inset 0 0 16px rgba(255,255,255,0.03);
+  clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  padding: 18px 20px;
+  position: relative;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sticky:hover {
+  box-shadow:
+    0 0 12px var(--rank-color),
+    0 0 28px var(--rank-color),
+    inset 0 0 16px rgba(255,255,255,0.05);
+}
+
+.sticky[data-color="yellow"] { --rank-color: var(--rank-yellow); }
+.sticky[data-color="pink"]   { --rank-color: var(--rank-pink); }
+.sticky[data-color="green"]  { --rank-color: var(--rank-green); }
+.sticky[data-color="blue"]   { --rank-color: var(--rank-blue); }
+
+@keyframes electric-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--rank-color), 0 0 20px rgba(77,184,255,0.15), inset 0 0 16px rgba(255,255,255,0.03); }
+  50%      { box-shadow: 0 0 14px var(--rank-color), 0 0 30px var(--rank-color), inset 0 0 20px rgba(255,255,255,0.06); }
+}
+
+.sticky {
+  animation: electric-pulse 3s ease-in-out infinite;
+  @keyframes scroll-open {
+  0% {
+        transform: scaleY(0.05);
+        opacity: 0;
+    }
+    60% {
+        transform: scaleY(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+  }
+}
+
+.sticky:not(.completed) {
+  transform-origin: top center;
+  animation: scroll-open 0.5s ease-out, electric-pulse 3s ease-in-out infinite;
+}
+
+.sticky h2 {
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sys-blue);
+  text-shadow: 0 0 6px var(--sys-glow);
+  margin: 0 0 8px;
+}
+.sticky h2::before { content: "[ "; color: var(--sys-text-dim); }
+.sticky h2::after  { content: " ]"; color: var(--sys-text-dim); }
+
+.sticky p {
+  color: var(--sys-text-dim);
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0 0 14px;
+}
+
+/* completed state — overrides rank color/glow */
+.sticky.completed {
+  opacity: 0.5;
+  filter: grayscale(60%);
+  box-shadow: none;
+  border-color: var(--sys-text-dim);
+}
+.sticky.completed:hover {
+  box-shadow: none;
+  border-color: var(--sys-text-dim);
+}
+.sticky.completed h2 {
+  color: var(--sys-text-dim);
+  text-shadow: none;
+  text-decoration: line-through;
+}
+.sticky.completed p {
+  text-decoration: line-through;
+}
+
+/* ===== Shared button base (used by remove/edit/complete) ===== */
+.sticky .pin-remove,
+.sticky .edit-link,
+.sticky .pin-complete {
+  background: transparent;
+  border: 1px solid var(--sys-blue-dim);
+  color: var(--sys-blue);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 8px;
+}
+.sticky .pin-remove:hover,
+.sticky .edit-link:hover,
+.sticky .pin-complete:hover:not(:disabled) {
+  border-color: var(--sys-blue);
+  box-shadow: 0 0 8px var(--sys-glow);
+}
+.sticky .pin-complete:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ===== Board header ===== */
+h1 {
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sys-blue);
+  text-shadow: 0 0 8px var(--sys-glow);
+  border-bottom: 1px solid var(--sys-blue-dim);
+  padding-bottom: 14px;
+  margin: 30px auto;
+  max-width: 700px;
+}
+h1 .count { color: var(--sys-gold); text-shadow: 0 0 8px rgba(242,201,76,0.6); }
+
+.empty {
+  text-align: center;
+  color: var(--sys-text-dim);
+  letter-spacing: 1px;
+  margin-top: 60px;
+}
+
+/* ===== Status panel ===== */
+.status-panel {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--sys-panel);
+  border: 1px solid var(--sys-blue-dim);
+  box-shadow: 0 0 14px rgba(77,184,255,0.2);
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  padding: 20px;
+  position: sticky;
+  top: 24px;
+}
+.status-panel h2 {
+  text-align: center;
+  color: var(--sys-text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+.level-display { text-align: center; margin-bottom: 10px; }
+.level-num {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--sys-blue);
+  text-shadow: 0 0 12px var(--sys-glow), 0 0 24px var(--sys-glow);
+  line-height: 1;
+}
+.level-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--sys-text-dim);
+  text-transform: uppercase;
+}
+
+.xp-bar {
+  height: 4px;
+  background: var(--sys-blue-dim);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.xp-fill {
+  height: 100%;
+  background: var(--sys-blue);
+  box-shadow: 0 0 8px var(--sys-glow);
+  transition: width 0.3s ease;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  border: 1px solid var(--sys-blue-dim);
+  padding: 14px;
+}
+.stat { display: flex; justify-content: space-between; font-size: 13px; }
+.stat-label { color: var(--sys-text-dim); letter-spacing: 1px; }
+.stat-val { color: var(--sys-text); font-weight: 700; }
+
+.quests-completed {
+  text-align: center;
+  font-size: 11px;
+  color: var(--sys-text-dim);
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+
+
+
+/* Custom Dropdown Container */
+.theme-select-wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: 'Rajdhani', sans-serif, system-ui;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Custom Select Styling */
+.theme-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  background-color: var(--sys-panel, rgba(20, 30, 48, 0.85));
+  color: var(--sys-blue, #00f0ff);
+  border: 1px solid var(--sys-blue-dim, rgba(0, 240, 255, 0.3));
+  border-radius: 4px; /* Or use clip-path to match your sticky notes */
+  padding: 8px 36px 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover & Focus Glow States */
+.theme-select:hover,
+.theme-select:focus {
+  border-color: var(--sys-blue, #00f0ff);
+  box-shadow: 0 0 12px var(--sys-glow, rgba(0, 240, 255, 0.4));
+  color: #ffffff;
+}

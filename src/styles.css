@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --sys-bg: #05070c;
+  --sys-panel: #0b111c;
+  --sys-blue: #4db8ff;
+  --sys-blue-dim: #2a4a63;
+  --sys-glow: rgba(77, 184, 255, 0.55);
+  --sys-text: #d6ecff;
+  --sys-text-dim: #6f89a3;
+  --sys-red: #e2504a;
+  --sys-gold: #f2c94c;
+  body[data-theme="light"] {
+  background: #eef1f5;
+  --sys-text: #1a1f2b;
+  --sys-text-dim: #5a6270;
+    }
+  --rank-blue: #4db8ff;
+  --rank-yellow: #f2c94c;
+  --rank-pink: #ff5fa8;
+  --rank-green: #52e07a;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 0%, #101c30 0%, #05070c 70%);
+  color: var(--sys-text);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+}
+
+a { color: var(--sys-blue); }

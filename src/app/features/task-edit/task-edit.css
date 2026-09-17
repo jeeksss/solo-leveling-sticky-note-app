@@ -1,0 +1,60 @@
+form {
+  max-width: 420px;
+  margin: 40px auto;
+  background: var(--sys-panel);
+  border: 1px solid var(--sys-blue);
+  box-shadow: 0 0 20px var(--sys-glow), inset 0 0 24px rgba(77,184,255,0.04);
+  clip-path: polygon(0 14px, 14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  padding: 24px 28px;
+}
+
+form label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sys-text-dim);
+  margin-bottom: 16px;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0a1220;
+  border: 1px solid var(--sys-blue-dim);
+  color: var(--sys-text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  padding: 8px 10px;
+  margin-top: 6px;
+}
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--sys-blue);
+  box-shadow: 0 0 8px var(--sys-glow);
+}
+
+form button[type="submit"] {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--sys-blue);
+  color: var(--sys-blue);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+form button[type="submit"]:hover:not(:disabled) {
+  background: var(--sys-blue);
+  color: #05070c;
+  box-shadow: 0 0 14px var(--sys-glow);
+}
+form button[type="submit"]:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

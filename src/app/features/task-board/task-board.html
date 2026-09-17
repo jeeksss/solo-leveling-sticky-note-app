@@ -1,0 +1,60 @@
+<h1>Quest Board: <span class="count">{{ openCount() }}</span> task</h1>
+
+<div class="page-layout">
+  <div class="board-column">
+
+    <div class="board">
+      @for (task of pendingTasks(); track task.id) {
+        @if (task) {
+          <article class="sticky" [attr.data-color]="task.color">
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.details }}</p>
+            <button class="pin-remove" (click)="remove(task.id)">x</button>
+            <button class="pin-complete" (click)="complete(task.id, task.color)" [disabled]="task.done">
+              {{ task.done ? 'Done' : 'Complete' }}
+            </button>
+            <a class="edit-link" [routerLink]="['/tasks', task.id, 'edit']">Edit</a>
+          </article>
+        }
+      } @empty {
+        <p class="empty">No open quests. Level up.</p>
+      }
+    </div>
+
+    @if (completedTasks().length > 0) {
+      <h2 class="section-label">Completed</h2>
+      <div class="board completed-board">
+        @for (task of completedTasks(); track task.id) {
+          <article class="sticky completed" [attr.data-color]="task.color">
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.details }}</p>
+            <button class="pin-remove" (click)="remove(task.id)">x</button>
+            <button class="pin-complete" disabled>Done</button>
+            <a class="edit-link" [routerLink]="['/tasks', task.id, 'edit']">Edit</a>
+          </article>
+        }
+      </div>
+    }
+
+  </div>
+
+  <aside class="status-panel">
+    <h2>Status</h2>
+    <div class="level-display">
+      <span class="level-num">{{ level() }}</span>
+      <span class="level-label">Level</span>
+    </div>
+    <div class="xp-bar">
+      <div class="xp-fill" [style.width.%]="progressPct()"></div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">STR</span><span class="stat-val">{{ stats().str }}</span></div>
+      <div class="stat"><span class="stat-label">INT</span><span class="stat-val">{{ stats().int }}</span></div>
+      <div class="stat"><span class="stat-label">AGI</span><span class="stat-val">{{ stats().agi }}</span></div>
+      <div class="stat"><span class="stat-label">VIT</span><span class="stat-val">{{ stats().vit }}</span></div>
+    </div>
+
+    <p class="quests-completed">{{ completedCount() }} quests completed</p>
+  </aside>
+</div>

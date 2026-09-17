@@ -1,0 +1,23 @@
+<h1>New Quest</h1>
+
+<form class="task-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title"
+        placeholder="What needs doing?" />
+    
+    @if (taskForm.controls.title.touched && taskForm.controls.title.invalid) {
+    <p class="error">A title is required (2 characters minimum).</p>
+    }
+
+    <label for="details">Details</label>
+    <textarea id="details" rows="3" formControlName="details"></textarea>
+
+    <label for="color">Note color</label>
+    <select id="color" formControlName="color">
+        <option value="yellow">Yellow</option>
+        <option value="pink">Pink</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+    </select>
+    <button type="submit" [disabled]="taskForm.invalid">Add Task</button>
+</form>
