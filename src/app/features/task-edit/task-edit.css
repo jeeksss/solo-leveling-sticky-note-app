@@ -58,3 +58,15 @@ form button[type="submit"]:disabled {
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+h1 {
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sys-blue);
+  text-shadow: 0 0 8px var(--sys-glow);
+  border-bottom: 1px solid var(--sys-blue-dim);
+  padding-bottom: 14px;
+  margin: 30px auto;
+  max-width: 700px;
+}
